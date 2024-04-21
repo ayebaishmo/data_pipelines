@@ -2,7 +2,7 @@ GET_CHARACTERS = '''SELECT * FROM charactercreator_character;'''
 
 
 CREATE_TEST_TABLE = '''
-    CREATE TABLE test_table
+    CREATE TABLE IF NOT EXISTS test_table
     ("id" SERIAL NOT NULL PRIMARY KEY,
     "name"  VARCHAR(200) NOT NULL,
     "age" INT NOT NULL,
@@ -16,11 +16,30 @@ INSERT_TEST_TABLE = '''
     VALUES ('Rayn Allred', 30, 'Uganda');
 '''
 
-AVG_ITEM_WEIGHT_PER_CHARACTER = '''
-    SELECT cc_char.name, SUM(ai.weight)
-    FROM charactercreator_character as cc_char
-    JOIN charactercreator_character_inventory as CC_inv
-    ON cc_char.character_id = cc_inv.character_id
-    JOIN armory_item as ai
-    ON ai.item_id = cc_inv.item_id
-    GROUP BY cc_char.character_id'''
+DROP_TEST_TABLE = '''
+drop table if exists test_table'''
+
+
+CREATE_CHARACTER_TABLE = '''
+    CREATE TABLE IF NOT EXISTS characters
+    (
+    "character_id" SERIAL NOT NULL PRIMARY KEY,
+    "name" VARCHAR(30) NOT NULL,
+    "level" INT NOT NULL,
+    "exp" INT NOT NULL,
+    "hp" INT NOT NULL,
+    "strength" INT NOT NULL,
+    "intelligence" INT NOT NULL,
+    "dextrity" INT NOT NULL,
+    "wisdom" INT NOT NULL
+    );
+'''
+
+INSERT_RYAN = '''
+    INSERT INTO characters ("name", "level", "exp", "hp", "strength", "intelligence", "dextrity", "wisdom")
+    VALUES ('Ryan Allred', 50, 100, 1000, 9000, 4, -5, 12)
+    '''
+
+DROP_CHARACTER_TABLE = '''
+    DROP TABLE IF EXISTS test_table
+'''
